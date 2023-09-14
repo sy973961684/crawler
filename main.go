@@ -9,19 +9,27 @@ import (
 func main() {
 	url := "https://www.thepaper.cn/"
 	resp, err := http.Get(url)
+
 	if err != nil {
-		fmt.Println("fetch url error:%v", err)
+		fmt.Printf("fetch url error:%v\n", err)
 		return
 	}
-	defer resp.Body.Close()
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			fmt.Printf("Error close io:%v", err)
+		}
+	}(resp.Body)
 
 	if resp.StatusCode != http.StatusOK {
 		fmt.Printf("Error status code:%v", resp.StatusCode)
 	}
 
 	body, err := io.ReadAll(resp.Body)
+
 	if err != nil {
-		fmt.Println("read content failed:%v", err)
+		fmt.Printf("read content failed:%v", err)
 		return
 	}
 
