@@ -23,6 +23,9 @@ func main() {
 	}
 
 	doc, err := htmlquery.Parse(bytes.NewReader(body))
+	if err != nil {
+		fmt.Println("htmlquery.Parse failed:%v", err)
+	}
 	nodes := htmlquery.Find(doc, `//div[@class="small_toplink__GmZhY"]/a[@target="_blank"]/h2`)
 	for _, node := range nodes {
 		fmt.Println("fetch card ", node.FirstChild.Data)
