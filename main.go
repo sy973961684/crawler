@@ -23,7 +23,7 @@ func main() {
 	}
 
 	doc, err := htmlquery.Parse(bytes.NewReader(body))
-	nodes := htmlquery.Find(doc, `/html/body/div/main/div[2]/div[3]/div[2]/div[1]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div/div[1]/a/h2`)
+	nodes := htmlquery.Find(doc, `//div[@class="small_toplink__GmZhY"]/a[@target="_blank"]/h2`)
 	for _, node := range nodes {
 		fmt.Println("fetch card ", node.FirstChild.Data)
 	}
